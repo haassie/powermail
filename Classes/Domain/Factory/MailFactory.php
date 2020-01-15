@@ -33,7 +33,7 @@ class MailFactory
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $marketingInfos = SessionUtility::getMarketingInfos();
         $mail
-            ->setPid(FrontendUtility::getStoragePage($settings['main']['pid']))
+            ->setPidOfMail(FrontendUtility::getStoragePage($settings['main']['pid']))
             ->setSenderMail($mailRepository->getSenderMailFromArguments($mail))
             ->setSenderName($mailRepository->getSenderNameFromArguments($mail))
             ->setSubject($settings['receiver']['subject'])

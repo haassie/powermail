@@ -5,6 +5,7 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
 use TYPO3\CMS\Backend\Routing\Router;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
@@ -70,7 +71,9 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return (string)$uriBuilder->buildUriFromRoute('record_edit', $uriParameters);
     }
 
     /**
@@ -93,7 +96,9 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return $uriBuilder->buildUriFromRoute('record_edit', $uriParameters);
     }
 
     /**
@@ -191,7 +196,8 @@ class BackendUtility extends AbstractUtility
      */
     public static function getModuleUrl($moduleName, $urlParameters = [])
     {
-        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
     }
 
     /**

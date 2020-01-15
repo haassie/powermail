@@ -41,9 +41,6 @@ class Mail extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\User
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $feuser = null;
 
@@ -69,17 +66,11 @@ class Mail extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\Form
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $form = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Answer>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $answers = null;
 
@@ -137,13 +128,13 @@ class Mail extends AbstractEntity
      * @var array
      */
     protected $answersByFieldUid = null;
-    
+
     /**
      * This property can be used by extensions to hold some data over a request
      * Use e.g. extension key as array key
      *
      * @var array
-     * @transient
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
      */
     protected $additionalData = [];
 
@@ -661,9 +652,9 @@ class Mail extends AbstractEntity
      * @param int $pid
      * @return Mail
      */
-    public function setPid($pid)
+    public function setPidOfMail($pid)
     {
-        parent::setPid($pid);
+        $this->setPid($pid);
         return $this;
     }
 
@@ -723,7 +714,7 @@ class Mail extends AbstractEntity
         }
         return $answers;
     }
-    
+
     /**
      * @return array
      */
@@ -739,7 +730,7 @@ class Mail extends AbstractEntity
     {
         $this->additionalData = $additionalData;
     }
-    
+
     /**
      * @param string $key
      * @param mixed $value

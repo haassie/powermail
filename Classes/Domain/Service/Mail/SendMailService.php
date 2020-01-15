@@ -113,8 +113,7 @@ class SendMailService
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])
             ->setReplyTo([$email['replyToEmail'] => $email['replyToName']])
-            ->setSubject($email['subject'])
-            ->setCharset(FrontendUtility::getCharset());
+            ->setSubject($email['subject']);
         $message = $this->addCc($message);
         $message = $this->addBcc($message);
         $message = $this->addReturnPath($message);
@@ -235,7 +234,7 @@ class SendMailService
     {
         $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
         if ($priorityValue > 0) {
-            $message->setPriority($priorityValue);
+            $message->priority($priorityValue);
         }
         return $message;
     }
@@ -299,7 +298,7 @@ class SendMailService
     protected function addHtmlBody(MailMessage $message, array $email)
     {
         if ($email['format'] !== 'plain') {
-            $message->setBody($this->createEmailBody($email), 'text/html');
+            $message->html($this->createEmailBody($email), FrontendUtility::getCharset());
         }
         return $message;
     }
@@ -318,7 +317,7 @@ class SendMailService
     {
         if ($email['format'] !== 'html') {
             $plaintextService = ObjectUtility::getObjectManager()->get(PlaintextService::class);
-            $message->addPart($plaintextService->makePlain($this->createEmailBody($email)), 'text/plain');
+            $message->text($plaintextService->makePlain($this->createEmailBody($email)), FrontendUtility::getCharset());
         }
         return $message;
     }
